@@ -1,28 +1,28 @@
 import FormikDropdown, { FormikDropdownProps } from "../../CustomFormik/FormikDropdown";
-import { useGetBranchs } from "../dataMasterApi";
+import { useGetReceiveType } from "../claimMasterApi";
 
-type BranchsDropDownProps = Omit<
+type ReceiveTypeDropDownProps = Omit<
     FormikDropdownProps,
     "data" | "isLoading" | "valueFieldName" | "label" | "displayFieldName" | "filterSelectedOptions"
 >;
 
-const BranchsDropDown = ({ formik, ...props }: BranchsDropDownProps) => {
-    const { data, isLoading } = useGetBranchs();
+const ReceiveTypeDropDown = ({ formik, ...props }: ReceiveTypeDropDownProps) => {
+    const { data, isLoading } = useGetReceiveType();
 
     return (
         <>
             <FormikDropdown
                 data={data?.data ?? []}
-                label="สาขาบริการ"
+                label="ผู้รับเอกสาร"
                 fullWidth
                 {...props}
                 formik={formik}
-                displayFieldName="branchName"
-                valueFieldName="branchId"
+                valueFieldName="receiveDocTypeId"
+                displayFieldName="receiveDocTypeName"
                 isLoading={isLoading}
             />
         </>
     );
 };
 
-export default BranchsDropDown;
+export default ReceiveTypeDropDown;

@@ -47,6 +47,8 @@ export const API_URL = VITE_API_URL;
 export const APIGW_URL = VITE_APIGW_BASEURL;
 export const APIGW_SSSPA_URL = VITE_APIGW_BASEURL + "/ssspa";
 export const APIGW_DATAMASTER_URL = VITE_APIGW_BASEURL + "/master";
+export const APIGW_CLAIM_URL = VITE_APIGW_BASEURL + "/ncol";
+export const API_PRMSTATEMENT_GW_URL = VITE_APIGW_BASEURL + '/statement';
 export const AUTH_LOGOUT_REDIRECT = VITE_SSO_ISSUER + "/Account/Logout";
 
 /*

@@ -37,6 +37,7 @@ const FormikAutocomplete = ({
     formik,
     selectedCallback,
     useFocusError = true,
+    onChange,
     ...formControlProps
 }: FormikAutocompleteProps) => {
     const { touched, value, error } = formik.getFieldMeta<string | number | undefined | null>(name);

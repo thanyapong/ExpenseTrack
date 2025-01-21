@@ -4,6 +4,9 @@ import MainAccordion from "../../_common/components/ProjectDesign/MainAccordion"
 import { TypographyStyled } from "../../_common/functionHelper";
 import { FormikFileUploader, FormikTextField } from "../../_common";
 import "../../_common/CSSStyle.css";
+import BankDropDown from "../../_common/components/PrmStatement/components/BankDropDown";
+import BranchsDropDown from "../../_common/components/DataMaster/components/BranchsDropDown";
+import ReceiveTypeDropDown from "../../_common/components/ClaimMaster/components/ReceiveTypeDropDown";
 
 type ExpenseDetailsProps = {
     formik: FormikProps<any>;
@@ -19,7 +22,13 @@ const ExpenseDetails = ({ formik }: ExpenseDetailsProps) => {
                     </TypographyStyled>
                 </Grid>
                 <Grid item xs={9} sm={9} md={3} lg={3}>
-                    <FormikTextField name="payeeAccountName" label="" formik={formik} size="small" required />
+                    <FormikTextField
+                        name="payeeAccountName"
+                        label="ชื่อบัญชีผู้รับเงิน"
+                        formik={formik}
+                        size="small"
+                        required
+                    />
                 </Grid>
             </Grid>
             <Grid container item alignItems="center" spacing={2}>
@@ -29,7 +38,14 @@ const ExpenseDetails = ({ formik }: ExpenseDetailsProps) => {
                     </TypographyStyled>
                 </Grid>
                 <Grid item xs={9} sm={9} md={3} lg={3}>
-                    <FormikTextField name="payeeAccountName" label="" formik={formik} size="small" required />
+                    <BankDropDown
+                        fullWidth
+                        name="payeeBankId"
+                        formik={formik}
+                        firstItemText=""
+                        disableFirstItem={true}
+                        required
+                    />
                 </Grid>
             </Grid>
             <Grid container item alignItems="center" spacing={2}>
@@ -39,7 +55,13 @@ const ExpenseDetails = ({ formik }: ExpenseDetailsProps) => {
                     </TypographyStyled>
                 </Grid>
                 <Grid item xs={9} sm={9} md={3} lg={3}>
-                    <FormikTextField name="payeeAccountNumber" label="" formik={formik} size="small" required />
+                    <FormikTextField
+                        name="payeeAccountNumber"
+                        label="เลขบัญชีผู้รับเงิน"
+                        formik={formik}
+                        size="small"
+                        required
+                    />
                 </Grid>
             </Grid>
             <Grid container item alignItems="center" spacing={2}>
@@ -49,7 +71,27 @@ const ExpenseDetails = ({ formik }: ExpenseDetailsProps) => {
                     </TypographyStyled>
                 </Grid>
                 <Grid item xs={9} sm={9} md={3} lg={3}>
-                    <FormikTextField name="serviceBranchId" label="" formik={formik} size="small" required />
+                    <BranchsDropDown name="serviceBranchId" formik={formik} size="small" required />
+                </Grid>
+            </Grid>
+            <Grid container item alignItems="center" spacing={2}>
+                <Grid item xs={3} sm={3} md={2} lg={2}>
+                    <TypographyStyled>
+                        ผู้รับเอกสาร :<span className="required-asterisk">*</span>
+                    </TypographyStyled>
+                </Grid>
+                <Grid item xs={9} sm={9} md={3} lg={3}>
+                    <ReceiveTypeDropDown name="receiveDocTypeId" formik={formik} size="small" required />
+                </Grid>
+            </Grid>
+            <Grid container item alignItems="center" spacing={2}>
+                <Grid item xs={3} sm={3} md={2} lg={2}>
+                    <TypographyStyled>
+                        เจ้าของรถ :<span className="required-asterisk">*</span>
+                    </TypographyStyled>
+                </Grid>
+                <Grid item xs={9} sm={9} md={3} lg={3}>
+                    <ReceiveTypeDropDown name="receiveDocTypeId" formik={formik} size="small" required />
                 </Grid>
             </Grid>
             <Grid container item alignItems="center" spacing={2}>

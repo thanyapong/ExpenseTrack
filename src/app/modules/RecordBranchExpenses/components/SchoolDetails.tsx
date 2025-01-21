@@ -1,13 +1,16 @@
 import { Grid } from "@mui/material";
 import { FormikProps } from "formik";
 import { FormikTextField } from "../../_common";
-import FormikAutocompleteApi from "../../_common/components/CustomFormik/FormikAutocompleteApi";
 import BranchsDropDown from "../../_common/components/DataMaster/components/BranchsDropDown";
 import MainAccordion from "../../_common/components/ProjectDesign/MainAccordion";
-import { getApplicationFilter } from "../../_common/components/SSSPAMaster/ssspaApi";
+// import { getApplicationFilter } from "../../_common/components/SSSPAMaster/ssspaApi";
+import { useGetSchool } from "../../_common/components/ClaimMaster/claimMasterApi";
+import ProvincesDropDown from "../../_common/components/ClaimMaster/components/ProvincesDropDown";
 import { ResetButton, TypographyStyled } from "../../_common/functionHelper";
+import FormikAutocompleteApiDefaultFilter from "./FormikAutocompleteApiDefaultFilter";
 import PayeeTable from "./PayeeTable";
 import useSchoolDetailsHook from "./SchoolDetails.hook";
+// import { getApplicationFilter } from "../../_common/components/ClaimMaster/claimMasterApi";
 
 type SchoolDetailsType = {
     formik: FormikProps<any>;
@@ -16,25 +19,38 @@ type SchoolDetailsType = {
 const SchoolDetails = ({ formik }: SchoolDetailsType) => {
     const { handleReset } = useSchoolDetailsHook(formik);
 
+    const { branchId, branchId_selectedText, schoolYear, applicationCode } = formik.values ?? {};
+
+    console.log(applicationCode);
+
     return (
         <MainAccordion title="รายละเอียดโรงเรียน :">
             <FormRow
                 label="ปีการศึกษา"
                 component={<FormikTextField name="schoolYear" label="" formik={formik} size="small" disabled />}
             />
-            <FormRow label="สาขา" component={<BranchsDropDown fullWidth formik={formik} name="branchId" />} />
+            <FormRow
+                label="จังหวัด"
+                component={<ProvincesDropDown fullWidth formik={formik} name="branchId" required />}
+            />
             <FormRow
                 label="AppID/สถานศึกษา"
                 component={
-                    <FormikAutocompleteApi
+                    <FormikAutocompleteApiDefaultFilter
                         fullWidth
                         name="applicationCode"
                         valueFieldName="applicationCode"
-                        displayFieldName="fullDetail"
-                        useQueryGet={getApplicationFilter}
+                        displayFieldName="schoolName"
+                        useQueryGet={useGetSchool}
                         label=""
                         formik={formik}
+                        defaultFilter={{
+                            year: schoolYear,
+                            provinceId: branchId,
+                        }}
                         required
+                        filterSelectedOptions
+                        disabled={!branchId}
                     />
                 }
             />
@@ -45,7 +61,7 @@ const SchoolDetails = ({ formik }: SchoolDetailsType) => {
                 <Grid item xs={9} sm={9} md={3} lg={3}>
                     <BranchsDropDown fullWidth formik={formik} name="branchId" disabled />
                 </Grid>
-                <Grid item xs={9} sm={9} md={3} lg={2}>
+                <Grid item xs={9} sm={12} md={3} lg={2}>
                     <ResetButton fullWidth variant="outlined" onClick={() => handleReset()}>
                         ล้างค่า
                     </ResetButton>

@@ -1,28 +1,28 @@
 import FormikDropdown, { FormikDropdownProps } from "../../CustomFormik/FormikDropdown";
-import { useGetBranchs } from "../dataMasterApi";
+import { useGetProviceAll } from "../claimMasterApi";
 
-type BranchsDropDownProps = Omit<
+type ProvincesDropDownProps = Omit<
     FormikDropdownProps,
     "data" | "isLoading" | "valueFieldName" | "label" | "displayFieldName" | "filterSelectedOptions"
 >;
 
-const BranchsDropDown = ({ formik, ...props }: BranchsDropDownProps) => {
-    const { data, isLoading } = useGetBranchs();
+const ProvincesDropDown = ({ formik, ...props }: ProvincesDropDownProps) => {
+    const { data, isLoading } = useGetProviceAll();
 
     return (
         <>
             <FormikDropdown
                 data={data?.data ?? []}
-                label="สาขาบริการ"
+                label="กรุณาเลือก"
                 fullWidth
                 {...props}
                 formik={formik}
-                displayFieldName="branchName"
-                valueFieldName="branchId"
+                valueFieldName="code"
+                displayFieldName="detail"
                 isLoading={isLoading}
             />
         </>
     );
 };
 
-export default BranchsDropDown;
+export default ProvincesDropDown;
